@@ -33,7 +33,19 @@ function createNote(body, notesArr) {
 }
 
 // delete notes
-function deleteNote(id, notesArr) {}
+function deleteNote(id, notesArr) {
+  for (let i = 0; i < notesArr.length; i++) {
+    let note = notesArr[i];
+
+    if (note.id == id) {
+      notesArr.splice(i, 1);
+      fs.writeFileSync(
+        path.join(__dirname, "./db/db.json"),
+        JSON.stringify(notesArr, null, 2)
+      );
+    }
+  }
+}
 
 // GET HOME API route
 app.get("/", function (req, res) {
@@ -58,9 +70,9 @@ app.post("/api/notes", function (req, res) {
 });
 
 // DELETE NOTES API
-app.delete("/api/notes", function (req, res) {
-  let results = notes;
-  console.log(req.query.id);
+app.delete("/api/notes/:id", function (req, res) {
+  deleteNote(req.params.id, notes);
+  res.json(true);
 });
 
 // GET notes route
