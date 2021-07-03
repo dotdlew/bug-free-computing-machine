@@ -1,5 +1,5 @@
 const PORT = process.env.PORT || 3000;
-const { notes } = require("./db/db.json");
+const notes = require("./db/db.json");
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -8,20 +8,16 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(express.static(path.join(__dirname, "public")));
 
 // filter queries
 function filteredQuery(query, notesArr) {
   let filtered = notesArr;
-
   if (query.title) {
     filtered = filtered.filter((notes) => notes.title === query.title);
   }
-
   if (query.text) {
     filtered = filtered.filter((notes) => notes.text === query.text);
   }
-
   return filtered;
 }
 
@@ -31,7 +27,7 @@ function createNote(body, notesArr) {
   notesArr.push(note);
   fs.writeFileSync(
     path.join(__dirname, "./db/db.json"),
-    JSON.stringify({ notes: notesArr }, null, 2)
+    JSON.stringify(notesArr, null, 2)
   );
   return note;
 }
@@ -57,12 +53,14 @@ app.get("/api/notes", function (req, res) {
 app.post("/api/notes", function (req, res) {
   req.body.id = notes.length.toString();
   const note = createNote(req.body, notes);
+  console.log(req.body);
   res.json(req.body);
 });
 
 // DELETE NOTES API
-app.delete("/api/notes/:id", function (req, res) {
+app.delete("/api/notes", function (req, res) {
   let results = notes;
+  console.log(req.query.id);
 });
 
 // GET notes route
