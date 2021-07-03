@@ -9,5 +9,7 @@ Daniel H. Lewis
 
 # Deployed
 Heroku: https://enigmatic-everglades-60682.herokuapp.com/
+
 Github Pages: https://dotdlew.github.io/bug-free-computing-machine/
+
 Github Repo: https://github.com/dotdlew/bug-free-computing-machine
