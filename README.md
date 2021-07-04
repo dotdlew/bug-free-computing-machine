@@ -1,5 +1,5 @@
 # bug-free-computing-machine
-Module 11 Challenge: Expressjs Note Taker
+Module 11 Challenge: ExpressJS Note Taker
 
 # Description
 Note taking app to practice ExpressJS routing
